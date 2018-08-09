@@ -21,7 +21,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {appRoutes} from './../routes';
 import { Error404Component } from './error/404.component';
 import { AuthService } from './user/auth.service';
-
+import {FormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     EventsAppComponent,
@@ -38,7 +38,8 @@ import { AuthService } from './user/auth.service';
     HttpModule,
     HttpClientModule,
     // RouterModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   entryComponents:[Error404Component],
   providers: [EventService,ToastrService,HttpClientModule,EventRouteActivator,EventListResolver,AuthService,
