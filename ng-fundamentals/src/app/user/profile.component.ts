@@ -1,9 +1,9 @@
-import { Component,OnInit } from '@angular/core'
+import { Component,OnInit ,Inject} from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { last } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { ToastrService } from '../common/toastr.service';
+import { Toastr, TOASTR_TOKEN } from '../common/toastr.service';
 // import { AuthService } from './auth.service';
 
 @Component({
@@ -21,13 +21,14 @@ export class ProfileComponent implements OnInit {
 public profileForm: FormGroup;
 private firstName;
 private lastName;
- constructor(private authService:AuthService, private router: Router,private toastrService: ToastrService){
+ constructor(private authService:AuthService, private router: Router,
+    @Inject(TOASTR_TOKEN) private toastr:Toastr){
 
  }
     ngOnInit(){
         if(!this.authService.currentUser){
             console.log("User not logged in :");
-            this.toastrService.error("You need to login first!!");
+            this.toastr.error("You need to login first!!");
             setTimeout(1000);
             this.router.navigate(['user/login']);
         }
@@ -49,6 +50,9 @@ private lastName;
     {
         if(this.profileForm.valid){
             this.authService.updateCurrentUser(formValues.firstName,formValues.lastName);
+            this.toastr.success("Profile Saved");
+            this.toastr.warning("Redirecting to All events in 2 seconds..");
+            setTimeout(2000);
             this.router.navigate(['events']);
         }
         
