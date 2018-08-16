@@ -12,6 +12,8 @@ import {
   EventListResolver,
   CreateSessionComponent,
   DurationPipe,
+  UpvoteComponent,
+  VoterService,
   
 
 } from './events/index';
@@ -54,7 +56,9 @@ let jQuery = window['$'];
     CollapsibleWellComponent,
     DurationPipe,
     SimpleModalComponent,
-    ModalTriggerDirective
+    ModalTriggerDirective,
+    UpvoteComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,7 @@ let jQuery = window['$'];
     ReactiveFormsModule
   ],
   entryComponents: [Error404Component],
-  providers: [EventService,
+  providers: [EventService,VoterService,
     {
       provide:JQ_TOKEN,
       useValue:jQuery
