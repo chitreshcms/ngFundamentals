@@ -11,14 +11,21 @@ import {
   EventRouteActivator,
   EventListResolver,
   CreateSessionComponent,
-  DurationPipe
+  DurationPipe,
+  
 
 } from './events/index';
 
+import {TOASTR_TOKEN,
+  Toastr,
+  CollapsibleWellComponent,
+  JQ_TOKEN,
+  SimpleModalComponent,
+  ModalTriggerDirective
+}from './common/index';
+
 import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/nav-bar.component';
-import { TOASTR_TOKEN,Toastr } from './common/toastr.service';
-import { CollapsibleWellComponent } from './common/collapsible-well.component';
 import { RouterModule } from '@angular/router';
 import { HttpModule, Http } from '@angular/http';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -27,7 +34,12 @@ import { Error404Component } from './error/404.component';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SessionListComponent } from './events/event-details/session-list.component';
-declare let toastr: Toastr;
+
+// declare let toastr: Toastr; fixing the AOT COmpilation error
+let toastr:Toastr= Window['toastr'];
+let jQuery = window['$'];
+
+
 @NgModule({
   declarations: [
     EventsAppComponent,
@@ -40,7 +52,9 @@ declare let toastr: Toastr;
     CreateSessionComponent,
     SessionListComponent,
     CollapsibleWellComponent,
-    DurationPipe
+    DurationPipe,
+    SimpleModalComponent,
+    ModalTriggerDirective
   ],
   imports: [
     BrowserModule,
@@ -53,6 +67,10 @@ declare let toastr: Toastr;
   ],
   entryComponents: [Error404Component],
   providers: [EventService,
+    {
+      provide:JQ_TOKEN,
+      useValue:jQuery
+    },
     {
       provide:TOASTR_TOKEN,
       useValue:toastr
