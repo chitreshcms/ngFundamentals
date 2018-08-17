@@ -14,6 +14,7 @@ import {
   DurationPipe,
   UpvoteComponent,
   VoterService,
+  LocationValidator,
   
 
 } from './events/index';
@@ -57,7 +58,8 @@ let jQuery = window['$'];
     DurationPipe,
     SimpleModalComponent,
     ModalTriggerDirective,
-    UpvoteComponent
+    UpvoteComponent,
+    LocationValidator
     
   ],
   imports: [
@@ -70,7 +72,7 @@ let jQuery = window['$'];
     ReactiveFormsModule
   ],
   entryComponents: [Error404Component],
-  providers: [EventService,VoterService,
+  providers: [EventService,VoterService,LocationValidator,
     {
       provide:JQ_TOKEN,
       useValue:jQuery
